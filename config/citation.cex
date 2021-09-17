@@ -3,3 +3,4 @@ urn:cts:greekLit:tlg5026.msA.hmt:|msa_scholia.xml|groupedThreeDivReader|MidDiplo
 urn:cts:greekLit:tlg0012.tlg001.msA:|msa_iliad.xml|divLineReader|MidDiplomaticBuilder("Diplomatic edition builder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()
 urn:cts:greekLit:tlg0012.tlg001.msAim:|msa_iliad.xml|divLineReader|MidDiplomaticBuilder("Diplomatic edition builder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()
 urn:cts:greekLit:tlg0012.tlg001.msAil:|msa_iliad.xml|divLineReader|MidDiplomaticBuilder("Diplomatic edition builder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()
+urn:cts:greekLit:tlg0012.tlg001.msAint:|msa_iliad.xml|divLineReader|MidDiplomaticBuilder("Diplomatic edition builder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()

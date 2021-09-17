@@ -4,7 +4,7 @@ Revisions to initial HMT edition of the Venetus A manuscript.
 
 Initial selection:
 
-- folio 44 recto, *Iliad* 3.102-3.126, with *scholia*
+- [folio 44 recto](https://www.homermultitext.org/facsimiles/venetus-a/44r/), *Iliad* 3.102-3.126, with *scholia*
 
 Later selections:
 

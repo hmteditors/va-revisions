@@ -37,12 +37,14 @@ end
 
 # 1. load a corpus by constructing normalized version of every text 
 # cataloged in repository
-repo = editorsrepo()
-psgs = []
-for u in citation_df(repo)[:,:urn]
-    push!(psgs, EditorsRepo.normalized_passages(repo, u))
+function loadcorpus(repo = editorsrepo())
+    psgs = []
+    for u in citation_df(repo)[:,:urn]
+        push!(psgs, EditorsRepo.normalized_passages(repo, u))
+    end
+    psgs |> Iterators.flatten |> collect |> CitableTextCorpus
 end
-c = psgs |> Iterators.flatten |> collect |> CitableTextCorpus
+    
 
 # 2. tokenize 
 ortho = literaryGreek()

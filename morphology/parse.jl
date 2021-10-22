@@ -22,7 +22,7 @@ function editorsrepo()
     repository(dirname(pwd()))
 end
 
-function customparser(krootdir, hmtlexdata)
+function customparser(; krootdir = kroot(), hmtlexdata = hmt_lexicon())
     fstsrc  =  joinpath(krootdir, "fst")
     coreinfl = joinpath(krootdir, "datasets", "core-infl")
     corevocab = joinpath(krootdir, "datasets", "core-vocab")

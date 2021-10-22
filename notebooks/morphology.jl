@@ -137,6 +137,7 @@ end
 
 # ╔═╡ ca12a71b-3414-4e72-99d0-003175304501
 psgmenu = begin
+	loadem
 	tknsfortext = filter(t -> urncontains(selectedtext, t.passage.urn), tkns)
 	map(t -> collapsePassageBy(t.passage.urn, 1) |> passagecomponent, tknsfortext) |> unique
 end

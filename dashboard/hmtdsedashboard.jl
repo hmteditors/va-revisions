@@ -28,18 +28,20 @@ assetfolder = joinpath(pwd(), "dashboard", "assets")
 app = dash(assets_folder = assetfolder, include_assets_files=true)
 
 app.layout = html_div(className = "w3-container") do
-    #html_div(className = "w3-container w3-light-gray w3-cell w3-mobile w3-border-left w3-border-gray", children = [dcc_markdown("*Dashboard version*: **$(DASHBOARD_VERSION)** ([version notes](https://homermultitext.github.io/dashboards/alpha-search/))")]),
+    html_div(className = "w3-container w3-light-gray w3-cell w3-mobile w3-border-left  w3-border-right w3-border-gray", children = [dcc_markdown("*Dashboard version*: **$(DASHBOARD_VERSION)** ([version notes](https://homermultitext.github.io/dashboards/alpha-search/))")]),
     
     html_h1("HMT DSE validation dashboard"),
     
     html_button("Load/update data", id="load_button"),
     html_div(children="No data loaded", id="datastate") ,
    
-    
-    html_h2("Choose a surface to validate"),
-    html_div(style = Dict("width" => "600px")) do
-        dcc_dropdown(id = "surfacepicker")
-    end,
+    html_div(className = "w3-container",
+        html_div(className = "w3-col l4 m4 s12",
+        children = [
+            html_h2("Choose a surface to validate"),
+            dcc_dropdown(id = "surfacepicker")
+        ])
+    ),
 
     html_div(id="dsecompleteness", className="w3-container"),
     html_div(id="dseaccuracy", className="w3-container")#,
@@ -101,13 +103,8 @@ callback!(
         accuracypassages = indexingaccuracy_html(r, surfurn, height=TEXTHEIGHT, strict = false)
         accuracy = dcc_markdown(accuracyhdr * accuracypassages)
         
-             #=
-        orthohdr = "> ## 2. Verification: orthography\n\nHighlighted tokens contain invalid characters.\n\n"
-        orthopsgs = orthographicvalidity_html(r, surfurn, strict = false)
-        orthography = dcc_markdown(orthohdr * orthopsgs,dangerously_allow_html=true)
-=#
-        
-        (completeness, accuracy) #, orthography)
+      
+        (completeness, accuracy)
     end
 end
 

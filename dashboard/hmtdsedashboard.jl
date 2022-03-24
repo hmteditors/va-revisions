@@ -60,8 +60,8 @@ app.layout = html_div(className = "w3-container") do
                 id = "texts",
                 options = [
                     (label = "All texts", value = "all"),
-                    (label = "Iliad", value = "iliad"),
-                    (label = "scholia", value = "scholia")
+                    (label = "Iliad only", value = "Iliad"),
+                    (label = "scholia only", value = "scholia")
                 ],
                 value = "all",
                 clearable=false
@@ -103,7 +103,7 @@ function hmtdse(edrep, surf, ht, textfilter)
     triples = dsetriples(edrep, strict = false)
     surfacetriples = filter(row -> urncontains(surf, row.surface), triples)
     textsurfacetriples = surfacetriples
-    if textfilter == "iliad"
+    if textfilter == "Iliad"
         textsurfacetriples = filter(row -> urncontains(CtsUrn("urn:cts:greekLit:tlg0012.tlg001:"), row.passage), surfacetriples)
     elseif textfilter == "scholia"
         textsurfacetriples = filter(row -> urncontains(CtsUrn("urn:cts:greekLit:tlg5026:"), row.passage), surfacetriples)
@@ -114,15 +114,50 @@ function hmtdse(edrep, surf, ht, textfilter)
     verificationlink = string("[", imgmd, "](", ictlink, ")")
 
     
-    hdr = "## Completeness of indexing:\n\nPage: *$(objectcomponent(surf))*. Texts included: *$(textfilter)*\n\nThe image is linked to the HMT Image Citation Tool where you can verify the completeness of DSE indexing.\n\n"
+    hdr = "## Visualizations for verification: page *$(objectcomponent(surf))*; texts included: *$(textfilter)*\n\n### Completeness\n\nThe image is linked to the HMT Image Citation Tool where you can verify the completeness of DSE indexing.\n\n"
 
     hdr * verificationlink
     
 
 end
 
-function hmtdseaccuracy()
-    "Hi. Filter texts for accurcy, too, just like completeness."
+function hmtdseaccuracy(edrep, surf, height, textfilter)
+    iiif = EditorsRepo.DEFAULT_IIIF
+    ict = EditorsRepo.DEFAULT_ICT
+    surfprs = surfacevizpairs(edrep, surf, strict = false)
+    corpus = diplomaticcorpus(edrep)
+    #psgs = filter(psg -> urncontains(pr[1], psg.urn), corpus.passages)
+    #
+    vizprs = surfprs
+    if textfilter == "Iliad"
+        vizprs = filter(pr -> urncontains(CtsUrn("urn:cts:greekLit:tlg0012.tlg001:"), pr[1]),  surfprs)
+    elseif textfilter == "scholia"
+        vizprs = filter(pr -> urncontains(CtsUrn("urn:cts:greekLit:tlg5026:"), pr[1]),  surfprs)
+    end
+
+    textlines = ["### Accuracy"]
+    for pr in vizprs
+        # get text contents
+        psgs = filter(psg -> urncontains(pr[1], psg.urn), corpus.passages)
+        psgtext = if isempty(psgs)
+            @warn("No passages match indexed URN $(pr[1])")
+            ""
+        elseif length(psgs) != 1
+            @warn("Found $(length(psgs)) passages matching indexed URN $(pr[1])")
+            @warn("Type of first is $(typeof(psgs[1]))")
+            textcontent = map(p -> p.text, psgs)
+            join(textcontent, "\n")
+        else
+            psgs[1].text
+        end
+
+        mdtext = string("**", passagecomponent(pr[1]), "** ", psgtext, "\n" )
+        # get image markup
+        mdimg = linkedMarkdownImage(ict, pr[2], iiif; ht=height, caption="image")
+        push!(textlines, "---\n\n" * mdimg * "\n\n" * mdtext )
+    end
+    join(textlines, "\n")
+    #"Hi. Filter texts for accuracy, too, just like completeness."
 end
 
 # Update surfaces menu and user message when "Load/update data" button
@@ -157,7 +192,8 @@ callback!(
         accuracyhdr = "### Verify accuracy of indexing\n*Check that the diplomatic reading and the indexed image correspond.*\n\n"
         #accuracypassages = indexingaccuracy_html(r, surfurn, height=TEXTHEIGHT, strict = false)
         #accuracy = dcc_markdown(accuracyhdr * accuracypassages)
-        accuracy = hmtdseaccuracy()
+
+        accuracy = hmtdseaccuracy(r,surfurn, TEXTHEIGHT, txt_choice) |> dcc_markdown
       
         (completeness, accuracy)
     end

@@ -30,10 +30,10 @@ app = dash(assets_folder = assetfolder, include_assets_files=true)
 app.layout = html_div(className = "w3-container") do
     html_div(className = "w3-container w3-light-gray w3-cell w3-mobile w3-border-left  w3-border-right w3-border-gray", children = [dcc_markdown("*Dashboard version*: **$(DASHBOARD_VERSION)** ([version notes](https://homermultitext.github.io/dashboards/alpha-search/))")]),
     
-    html_h1("HMT DSE validation dashboard"),
+    html_h1("HMT project: DSE verification dashboard"),
 
     html_div(className="w3-panel w3-round w3-border-left w3-border-gray w3-margin-left w3-margin-right",
-        dcc_markdown("*Load or update data, then choose a surface to validate*.")
+        dcc_markdown("*Load or update data, then choose a surface to validate. Optionally, filter set of texts to verify*.")
     ),
    
     html_div(className = "w3-container",
@@ -114,13 +114,16 @@ function hmtdse(edrep, surf, ht, textfilter)
     verificationlink = string("[", imgmd, "](", ictlink, ")")
 
     
-    hdr = "## Completeness of indexing\n\n"
+    hdr = "## Completeness of indexing:\n\nPage: *$(objectcomponent(surf))*. Texts included: *$(textfilter)*\n\nThe image is linked to the HMT Image Citation Tool where you can verify the completeness of DSE indexing.\n\n"
 
     hdr * verificationlink
     
 
 end
 
+function hmtdseaccuracy()
+    "Hi. Filter texts for accurcy, too, just like completeness."
+end
 
 # Update surfaces menu and user message when "Load/update data" button
 # is clicked:
@@ -146,17 +149,15 @@ callback!(
         (dcc_markdown(""), dcc_markdown(""))#, dcc_markdown(""))
     else
         surfurn = Cite2Urn(newsurface)
-   
-        #completenessimg = indexingcompleteness_html(r, surfurn, height=THUMBHEIGHT, strict = false)
         completeness = dcc_markdown(hmtdse(r, surfurn, THUMBHEIGHT, txt_choice))
        
        
    
 
         accuracyhdr = "### Verify accuracy of indexing\n*Check that the diplomatic reading and the indexed image correspond.*\n\n"
-        accuracypassages = indexingaccuracy_html(r, surfurn, height=TEXTHEIGHT, strict = false)
-        accuracy = dcc_markdown(accuracyhdr * accuracypassages)
-        
+        #accuracypassages = indexingaccuracy_html(r, surfurn, height=TEXTHEIGHT, strict = false)
+        #accuracy = dcc_markdown(accuracyhdr * accuracypassages)
+        accuracy = hmtdseaccuracy()
       
         (completeness, accuracy)
     end

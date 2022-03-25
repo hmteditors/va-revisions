@@ -16,3 +16,9 @@ urn:cts:greekLit:tlg5026.msAext.hmt:21|VenetusA-Scholia-21.xml|TEIThreeDivsGroup
 
 
 urn:cts:greekLit:tlg0012.tlg001.msA:21|VenetusA-Iliad-21.xml|TEIDivLine|MidDiplomaticBuilder("Diplomatic editionbuilder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()
+
+
+
+
+
+urn:cts:greekLit:tlg7000.tlg001:|VenetusA-anthology.xml|TEIDivDivLine|MidDiplomaticBuilder("Diplomatic editionbuilder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()

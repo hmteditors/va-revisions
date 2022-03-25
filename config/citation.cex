@@ -21,4 +21,4 @@ urn:cts:greekLit:tlg0012.tlg001.msA:21|VenetusA-Iliad-21.xml|TEIDivLine|MidDiplo
 
 
 
-urn:cts:greekLit:tlg7000.tlg001:|VenetusA-anthology.xml|TEIDivDivLine|MidDiplomaticBuilder("Diplomatic editionbuilder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()
+urn:cts:greekLit:tlg7000.tlg001.msA:|VenetusA-anthology.xml|TEIDivDivLine|MidDiplomaticBuilder("Diplomatic editionbuilder","dipl")|MidNormalizedBuilder("Normalized edition builder","normed")|msGreek()

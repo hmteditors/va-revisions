@@ -17,7 +17,7 @@
         <body>
             <div n="9" type="book">
                 <div n="387" type="poem">
-                    <head>‡ <persName n="urn:cite:hmt:pers.pers814">Ἀδριανοῦ</persName> Καίσαρος εἰς
+                    <head n="title">‡ <persName n="urn:cite:hmt:pers.pers814">Ἀδριανοῦ</persName> Καίσαρος εἰς
                         τον <persName n="urn:cite:hmt:pers.pers172">Ἔκτορος</persName> ταφον:</head>
                     <l n="1"><persName n="urn:cite:hmt:pers.pers172">Ἕκτορ</persName>
                         <w>Ἀρ<unclear>η</unclear>ύϊον</w> αἷμα: κατα χθονὸς εἴποι
